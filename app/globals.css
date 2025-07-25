@@ -24,3 +24,30 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Extend Tailwind styles directly in global.css */
+@layer components {
+  .container {
+    max-width: 7xl;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .card {
+    @apply bg-white p-4 shadow-md rounded-lg;
+  }
+  .btn-primary {
+    @apply bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
