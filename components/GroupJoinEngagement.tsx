@@ -29,8 +29,8 @@ export default function GroupJoinEngagement({
           <Image
             src={engagement.top_left_icon_img}
             alt="Top left icon"
-            width={40}
-            height={40}
+            width={200}
+            height={200}
             className="absolute top-4 left-4"
           />
         )}

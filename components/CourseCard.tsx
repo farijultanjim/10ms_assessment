@@ -31,7 +31,7 @@ export default function CourseCard({ data }: CourseCardProps) {
   const currentMedia = data.data.media[currentIndex];
 
   return (
-    <div className="bg-white text-black p-1">
+    <div className="bg-white text-black p-1 border border-gray-300 max-w-sm">
       {/* Media Carousel */}
       <div className="mb-4">
         <div className="relative">
