@@ -9,6 +9,7 @@ export default async function ProductPage({
   params: Promise<{ lang: string }>;
 }) {
   const resolvedParams = await params;
+  console.log("Page params:", resolvedParams); // Debug log
   const data = await fetchProductData(resolvedParams.lang || "en");
 
   return (

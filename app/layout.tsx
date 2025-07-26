@@ -1,13 +1,13 @@
 import { NextIntlClientProvider } from "next-intl";
-import "./globals.css";
+import "./globals.css"; // Located in app/ as per your structure
 
 export default async function RootLayout({
   children,
-  params: { locale },
 }: {
   children: React.ReactNode;
-  params: { locale: string };
 }) {
+  const locale = "en"; // Default fallback; middleware should override via routing
+  console.log("Layout locale:", locale); // Debug log
   let messages;
   try {
     messages = (await import(`@/i18n/${locale}.json`)).default;

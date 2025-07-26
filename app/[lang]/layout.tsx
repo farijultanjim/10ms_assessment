@@ -7,6 +7,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
+  console.log("Metadata params:", resolvedParams); // Debug log
   const data = await fetchProductData(resolvedParams.lang || "en");
   return {
     title: data.title || "IELTS Course",
@@ -26,6 +27,7 @@ export default async function Layout({
   params: Promise<{ lang: string }>;
 }) {
   const resolvedParams = await params;
+  console.log("Layout params:", resolvedParams); // Debug log
   const data = await fetchProductData(resolvedParams.lang || "en");
   return (
     <>

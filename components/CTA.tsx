@@ -1,5 +1,6 @@
 "use client";
-import { CtaText } from "../types/api";
+
+import { CtaText } from "@/types/api";
 import { useTranslations } from "next-intl";
 
 interface CTAProps {
