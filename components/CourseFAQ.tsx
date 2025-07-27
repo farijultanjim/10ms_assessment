@@ -13,7 +13,7 @@ export default function CourseFAQ({ data }: CourseFAQProps) {
   const faqItems = section?.values || [];
 
   
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   
   const toggleAccordion = (index: number) => {
       setOpenIndex(openIndex === index ? null : index);
@@ -21,15 +21,15 @@ export default function CourseFAQ({ data }: CourseFAQProps) {
     
     if (!faqItems.length || !section) return null;
   return (
-    <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg mb-6">
-      <h2 className="text-xl font-semibold mb-4">{section.name}</h2>
-      <div className="space-y-2">
+    <div className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{section.name}</h2>
+      <div className="space-y-2 border border-gray-300 p-6 rounded-lg">
         {faqItems.map((item, index) => (
-          <div key={item.id} className="border-b border-gray-700">
+          <div key={item.id} className="border-b border-gray-300 border-dashed">
             <button
               onClick={() => toggleAccordion(index)}
               aria-label={`Toggle details for ${item.question}`}
-              className="w-full text-left py-3 font-medium flex justify-between items-center"
+              className="w-full text-left py-3 font-medium flex justify-between items-center cursor-pointer"
             >
               <span className="prose prose-invert">{item.question}</span>
               <ChevronDown

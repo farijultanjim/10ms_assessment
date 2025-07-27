@@ -1,4 +1,5 @@
 import { ApiResponse } from "@/types/api-types";
+import { Check } from "lucide-react";
 
 interface CoursePointersProps {
   data: ApiResponse;
@@ -13,15 +14,20 @@ export default function CoursePointers({ data }: CoursePointersProps) {
   if (!pointers.length || !section) return null;
 
   return (
-    <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg mb-6">
-      <h2 className="text-xl font-semibold mb-4">{section.name}</h2>
-      <ul className="list-disc pl-5 space-y-2">
-        {pointers.map((pointer) => (
-          <li key={pointer.id} className="text-gray-300">
-            {pointer.text}
-          </li>
-        ))}
-      </ul>
+    <div className="mb-12">
+      <h2 className="text-2xl font-semibold mb-6">{section.name}</h2>
+      <div className="border border-gray-300 p-6 rounded-lg ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {pointers.map((pointer) => (
+            <p key={pointer.id} className="flex items-start text-md">
+              <span>
+                <Check className="text-blue-500 inline-block mr-2" />
+              </span>
+              <span>{pointer.text}</span>
+            </p>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
