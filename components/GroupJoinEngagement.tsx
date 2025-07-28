@@ -16,7 +16,7 @@ export default function GroupJoinEngagement({
   if (!engagement || !section) return null;
 
   return (
-    <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg mb-12 relative overflow-hidden">
+    <div className="bg-gray-900 text-white p-8 rounded-lg mb-12 relative overflow-hidden">
       <Image
         src={engagement.background.image}
         alt="Background"

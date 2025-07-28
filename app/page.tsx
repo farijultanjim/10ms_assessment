@@ -1,56 +1,3 @@
-// import { fetchCourseData } from "@/lib/data-fetch";
-// import { ApiResponse } from "@/types/api-types";
-// import CourseHeader from "@/components/CourseHeader";
-// import CourseCard from "@/components/CourseCard";
-// import CourseInstructor from "@/components/CourseInstructor";
-// import CourseFeatures from "@/components/CourseFeatures";
-// import GroupJoinEngagement from "@/components/GroupJoinEngagement";
-// import CoursePointers from "@/components/CoursePointers";
-// import CourseAbout from "@/components/CourseAbout";
-// import CourseFeatureExplanations from "@/components/CourseFeatureExplanations";
-// import CourseFAQ from "@/components/CourseFAQ";
-// import Media from "@/components/Media";
-// import Checklist from "@/components/Checklist";
-
-// export default async function HomePage() {
-//   const data: ApiResponse = await fetchCourseData();
-
-//   return (
-//     <main className="">
-//       <div className="bg-gray-900  hidden lg:block">
-//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto relative">
-//           <div className="lg:col-span-2">
-//             <CourseHeader data={data} />
-//           </div>
-//           <div className="absolute top-10 right-0">
-//             <CourseCard data={data} />
-//           </div>
-//         </div>
-//       </div>
-//       <div className="flex flex-col lg:hidden">
-//         <div className="bg-gray-900 px-2 py-8">
-//           <Media data={data} />
-//           <CourseHeader data={data} />
-//         </div>
-//         <Checklist data={data} />
-//       </div>
-
-//       <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 max-w-6xl mx-auto">
-//         {/* all the sections */}
-//         <div className="lg:col-span-2">
-//           <CourseInstructor data={data} />
-//           <CourseFeatures data={data} />
-//           <GroupJoinEngagement data={data} />
-//           <CoursePointers data={data} />
-//           <CourseAbout data={data} />
-//           <CourseFeatureExplanations data={data} />
-//           <CourseFAQ data={data} />
-//         </div>
-//       </div>
-//     </main>
-//   );
-// }
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -68,20 +15,28 @@ import CourseFAQ from "@/components/CourseFAQ";
 import Media from "@/components/Media";
 import Checklist from "@/components/Checklist";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { useLanguage } from "@/components/Header";
 
 export default function HomePage() {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [activeSection, setActiveSection] = useState<number | null>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const navbarRef = useRef<HTMLUListElement>(null);
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchCourseData();
-      setData(result);
+      try {
+        const result = await fetchCourseData(lang);
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
     fetchData();
+  }, [lang]);
 
+  useEffect(() => {
     const handleScroll = () => {
       sectionRefs.current.forEach((ref, index) => {
         if (ref && ref.getBoundingClientRect().top <= 100) {
@@ -120,14 +75,20 @@ export default function HomePage() {
     "faq",
   ];
 
-  // Filter sections once and use consistently
   const filteredSections = data.data.sections.filter((section) =>
     displayedSectionTypes.includes(section.type)
   );
 
   return (
     <main className="px-4 lg:px-0">
-      <div className="bg-gray-900 hidden lg:block">
+      <div
+        className="bg-gray-900 hidden lg:block"
+        style={{
+          backgroundImage: `url(${"https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg"})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto relative">
           <div className="lg:col-span-2">
             <CourseHeader data={data} />
@@ -138,7 +99,14 @@ export default function HomePage() {
         </div>
       </div>
       <div className="flex flex-col lg:hidden">
-        <div className="bg-gray-900 px-2 py-8">
+        <div
+          className="bg-gray-900 px-2 py-8"
+          style={{
+            backgroundImage: `url(${"https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg"})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <Media data={data} />
           <CourseHeader data={data} />
         </div>
@@ -146,10 +114,9 @@ export default function HomePage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 max-w-6xl mx-auto">
-        {/* All the sections */}
         <div className="lg:col-span-2">
-          <nav className="sticky top-0 z-30 bg-white  py-3">
-            <div className="flex items-center px-4 py-2 border-b border-gray-300 gap-1.5">
+          <nav className="sticky top-0 z-30 bg-white py-3">
+            <div className="flex items-center py-2 border-b border-gray-300 gap-1.5">
               <button
                 onClick={() => scrollNavbar("left")}
                 className="text-gray-600 p-1.5 hover:text-gray-800 bg-gray-200 rounded-full cursor-pointer"
@@ -214,7 +181,9 @@ export default function HomePage() {
             }
             return (
               <div
-                ref={(el) => (sectionRefs.current[index] = el)}
+                ref={(el) => {
+                  sectionRefs.current[index] = el;
+                }}
                 key={section.type}
                 className="mb-6"
               >

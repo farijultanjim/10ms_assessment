@@ -1,4 +1,11 @@
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
+import { Header, LanguageProvider } from '@/components/Header';
+
+export const metadata: Metadata = {
+  title: '10MinuteSchool Course',
+  description: 'IELTS Course Page',
+};
 
 export default function RootLayout({
   children,
@@ -7,8 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`min-h-screen `}>
-        {children}
+      <body>
+        <LanguageProvider>
+          <Header />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

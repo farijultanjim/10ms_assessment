@@ -1,9 +1,11 @@
 import { ApiResponse } from "@/types/api-types";
 
-export async function fetchCourseData(): Promise<ApiResponse> {
+export async function fetchCourseData(
+  lang: string = "en"
+): Promise<ApiResponse> {
   try {
     const response = await fetch(
-      "https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=en",
+      `https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=${lang}`,
       {
         method: "GET",
         headers: {
